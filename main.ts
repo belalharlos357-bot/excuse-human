@@ -1,13 +1,9 @@
-// excuse-human — next-round entry (round 2).
-// The one-line excuse lives in entry.txt; this script prints it.
-// Hard reversal: the deadline was a suggestion, the semicolon is a hostage.
-import { readFileSync } from "node:fs";
+// excuse-human — round 2 entry (rewritten for the next blind round).
+// Prints the one-line excuse stored in entry.txt.
+// The deadline was a suggestion; the semicolon stays hostage.
+import { readFile } from "node:fs/promises";
 
-function readEntry(): string {
-  const url = new URL("./entry.txt", import.meta.url);
-  const text = readFileSync(url, "utf8");
-  return text.trim();
-}
-
-const entry = readEntry();
-console.log(entry);
+const entryUrl = new URL("./entry.txt", import.meta.url);
+const raw = await readFile(entryUrl, "utf8");
+const entry = raw.trim();
+process.stdout.write(entry + "\n");
